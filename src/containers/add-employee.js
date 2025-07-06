@@ -12,6 +12,21 @@ export class AddEmployee extends LitElement {
     }
   `;
 
+  constructor() {
+    super();
+    this._onStoreChange = () => this.requestUpdate();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    store.addEventListener("change", this._onStoreChange);
+  }
+
+  disconnectedCallback() {
+    store.removeEventListener("change", this._onStoreChange);
+    super.disconnectedCallback();
+  }
+
   _handleSave = (employee) => {
     store.add(employee);
     Router.go("/");

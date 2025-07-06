@@ -22,6 +22,7 @@ export const locales = {
     next: "Next",
     prev: "Previous",
     searchByName: "Search by Name",
+    updatingInformation: "information updating",
   },
   tr: {
     employees: "Çalışanlar",
@@ -47,5 +48,6 @@ export const locales = {
     next: "Sonraki",
     prev: "Önceki",
     searchByName: "İsimle Ara",
+    updatingInformation: "bilgileri güncelleniyor",
   },
 };

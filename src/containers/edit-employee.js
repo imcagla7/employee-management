@@ -21,10 +21,17 @@ export class EditEmployee extends LitElement {
     super();
     this.employeeId = null;
     this.employee = null;
+    this._onStoreChange = () => this.requestUpdate();
+  }
+
+  disconnectedCallback() {
+    store.removeEventListener("change", this._onStoreChange);
+    super.disconnectedCallback();
   }
 
   connectedCallback() {
     super.connectedCallback();
+    store.addEventListener("change", this._onStoreChange);
     const match = window.location.pathname.match(/\/edit-employee\/(\d+)/);
     if (match) {
       this.employeeId = Number(match[1]);
