@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import { store } from "../store/store";
+import { store, t } from "../store/store";
 import { Router } from "@vaadin/router";
 import "../components/employee-form.js";
 
@@ -19,7 +19,7 @@ export class AddEmployee extends LitElement {
 
   render() {
     return html`
-      <h2>Yeni Çalışan Ekle</h2>
+      <h2>${t("addNewEmployee")}</h2>
       <employee-form
         .employee=${null}
         .onSave=${this._handleSave}

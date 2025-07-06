@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import { store } from "../store/store";
+import { store, t } from "../store/store";
 import { Router } from "@vaadin/router";
 
 export class EmployeeList extends LitElement {
@@ -100,19 +100,19 @@ export class EmployeeList extends LitElement {
 
   render() {
     return html`<div class="table-container">
-      <h2>Çalışan Listesi</h2>
+      <h2>${t("employeeList")}</h2>
       <table>
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Employment</th>
-            <th>Date of Birth</th>
-            <th>Phone Number</th>
-            <th>Email Address</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th>Actions</th>
+            <th>${t("firstName")}</th>
+            <th>${t("lastName")}</th>
+            <th>${t("dateOfEmployment")}</th>
+            <th>${t("dateOfBirth")}</th>
+            <th>${t("phoneNumber")}</th>
+            <th>${t("emailAddress")}</th>
+            <th>${t("department")}</th>
+            <th>${t("position")}</th>
+            <th>${t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +132,7 @@ export class EmployeeList extends LitElement {
                     class="edit-button"
                     @click=${() => this._edit(emp.id)}
                   >
-                    Edit
+                    ${t("edit")}
                   </button>
                   <button
                     class="delete-button"

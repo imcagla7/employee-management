@@ -1,5 +1,6 @@
 import { Router } from "@vaadin/router";
 import { LitElement, html, css } from "lit";
+import { store, t } from "../store/store";
 
 export class AppHeader extends LitElement {
   static styles = css`
@@ -44,7 +45,37 @@ export class AppHeader extends LitElement {
       background: #e0e0e0;
       margin: 0 12px;
     }
+    .flag-btn {
+      cursor: pointer;
+      font-size: 20px;
+      color: #444;
+      transition: color 0.2s;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .flag-btn:hover {
+      background-color: #dedddd;
+    }
+    .flag-btn.active {
+      border: 1px solid #e67c3c;
+      background: #fff3e0;
+    }
   `;
+
+  constructor() {
+    super();
+    this._onStoreChange = () => this.requestUpdate();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    store.addEventListener("change", this._onStoreChange);
+  }
+
+  disconnectedCallback() {
+    store.removeEventListener("change", this._onStoreChange);
+    super.disconnectedCallback();
+  }
 
   render() {
     return html`
@@ -52,12 +83,25 @@ export class AppHeader extends LitElement {
         <div class="logo">ING</div>
         <div class="nav">
           <span class="nav-link" @click=${() => Router.go("/")}>
-            Employees
+            ${t("employees")}
           </span>
           <span class="divider"></span>
           <span class="nav-link" @click=${() => Router.go("/add-employee")}>
-            Add New Employee
+            ${t("addNew")}
           </span>
+          <span class="divider"></span>
+          <div class="button-group">
+            <span
+              class="flag-btn ${store.getLanguage() === "tr" ? "active" : ""}"
+              @click=${() => store.setLanguage("tr")}
+              >🇹🇷</span
+            >
+            <span
+              class="flag-btn ${store.getLanguage() === "en" ? "active" : ""}"
+              @click=${() => store.setLanguage("en")}
+              >🇬🇧</span
+            >
+          </div>
         </div>
       </div>
     `;

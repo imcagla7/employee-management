@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import { store } from "../store/store";
+import { store, t } from "../store/store";
 import "../components/employee-form.js";
 import { Router } from "@vaadin/router";
 
@@ -38,11 +38,11 @@ export class EditEmployee extends LitElement {
   };
 
   render() {
-    if (!this.employee) return html`<p>Employee not found.</p>`;
+    if (!this.employee) return html`<p>${t("employeeNotFound")}</p>`;
     return html`
       <h2>
-        "${this.employee.firstName} ${this.employee.lastName}" bilgilerini
-        güncelliyorsun
+        "${this.employee.firstName} ${this.employee.lastName}"
+        ${t("updatingInformation")}
       </h2>
       <employee-form
         .employee=${this.employee}
