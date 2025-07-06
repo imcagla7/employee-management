@@ -133,6 +133,10 @@ export class EmployeeForm extends LitElement {
   _handleSubmit(e) {
     e.preventDefault();
     if (this._validateForm()) {
+      if (this.employee) {
+        const confirmed = window.confirm(t("confirmUpdate"));
+        if (!confirmed) return;
+      }
       this.onSave({ ...this._form });
     } else {
       console.log("Form has errors:", this._errors);
@@ -193,7 +197,7 @@ export class EmployeeForm extends LitElement {
         <label for="phoneNumber">${t("phoneNumber")}</label>
         <input
           name="phoneNumber"
-          placeholder=${t("phoneNumber")}
+          placeholder=${t("phoneNumberPlaceholder")}
           .value=${this._form.phoneNumber}
           @input=${(e) => this._handleInput(e, "phoneNumber")}
           required

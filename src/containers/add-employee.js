@@ -19,7 +19,7 @@ export class AddEmployee extends LitElement {
 
   render() {
     return html`
-      <h2>${t("addNewEmployee")}</h2>
+      <h2>${t("addNew")}</h2>
       <employee-form
         .employee=${null}
         .onSave=${this._handleSave}

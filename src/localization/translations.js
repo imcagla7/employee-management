@@ -18,7 +18,7 @@ export const locales = {
     addEmployee: "Add Employee",
     updateEmployee: "Update Employee",
     select: "Select",
-    employeesList: "Employees List",
+    employeeList: "Employee List",
   },
   tr: {
     employees: "Çalışanlar",
@@ -28,6 +28,7 @@ export const locales = {
     dateOfEmployment: "İşe Giriş Tarihi",
     dateOfBirth: "Doğum Tarihi",
     phoneNumber: "Telefon Numarası",
+    phoneNumberPlaceholder: "5551234567",
     emailAddress: "E-posta Adresi",
     department: "Departman",
     position: "Pozisyon",
@@ -39,6 +40,6 @@ export const locales = {
     addEmployee: "Çalışan Ekle",
     updateEmployee: "Çalışanı Güncelle",
     select: "Seçiniz",
-    employeesList: "Çalışan Listesi",
+    employeeList: "Çalışan Listesi",
   },
 };
