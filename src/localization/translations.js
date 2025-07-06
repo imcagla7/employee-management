@@ -19,6 +19,8 @@ export const locales = {
     updateEmployee: "Update Employee",
     select: "Select",
     employeeList: "Employee List",
+    next: "Next",
+    prev: "Previous",
   },
   tr: {
     employees: "Çalışanlar",
@@ -41,5 +43,7 @@ export const locales = {
     updateEmployee: "Çalışanı Güncelle",
     select: "Seçiniz",
     employeeList: "Çalışan Listesi",
+    next: "Sonraki",
+    prev: "Önceki",
   },
 };

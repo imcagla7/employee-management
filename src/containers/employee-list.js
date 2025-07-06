@@ -63,17 +63,47 @@ export class EmployeeList extends LitElement {
     .delete-button:hover {
       background-color: #ee7067;
     }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .pagination button {
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1px solid #e67c3c;
+      background: #fff;
+      color: #e67c3c;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    .pagination button[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .pagination span {
+      font-weight: 500;
+      color: #444;
+    }
   `;
 
   static properties = {
     employees: { type: Array },
+    currentPage: { state: true },
+    pageSize: { state: true },
   };
 
   constructor() {
     super();
     this.employees = store.getAll();
+    this.currentPage = 1;
+    this.pageSize = 10;
     this._onChange = () => {
       this.employees = store.getAll();
+      this.currentPage = 1;
     };
   }
 
@@ -85,6 +115,15 @@ export class EmployeeList extends LitElement {
   disconnectedCallback() {
     store.removeEventListener("change", this._onChange);
     super.disconnectedCallback();
+  }
+
+  get totalPages() {
+    return Math.ceil(this.employees.length / this.pageSize);
+  }
+
+  get pagedEmployees() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.employees.slice(start, start + this.pageSize);
   }
 
   _edit(id) {
@@ -116,7 +155,7 @@ export class EmployeeList extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${this.employees.map(
+          ${this.pagedEmployees.map(
             (emp) => html`
               <tr>
                 <td>${emp.firstName}</td>
@@ -146,6 +185,21 @@ export class EmployeeList extends LitElement {
           )}
         </tbody>
       </table>
+      <div class="pagination">
+        <button
+          ?disabled=${this.currentPage === 1}
+          @click=${() => this.currentPage--}
+        >
+          ${t("prev")}
+        </button>
+        <span> ${this.currentPage} / ${this.totalPages} </span>
+        <button
+          ?disabled=${this.currentPage === this.totalPages}
+          @click=${() => this.currentPage++}
+        >
+          ${t("next")}
+        </button>
+      </div>
     </div>`;
   }
 }
