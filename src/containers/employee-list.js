@@ -88,12 +88,23 @@ export class EmployeeList extends LitElement {
       font-weight: 500;
       color: #444;
     }
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .search-container {
+      display: flex;
+    }
   `;
 
   static properties = {
     employees: { type: Array },
     currentPage: { state: true },
     pageSize: { state: true },
+    searchQuery: { state: true },
   };
 
   constructor() {
@@ -101,6 +112,7 @@ export class EmployeeList extends LitElement {
     this.employees = store.getAll();
     this.currentPage = 1;
     this.pageSize = 10;
+    this.searchQuery = "";
     this._onChange = () => {
       this.employees = store.getAll();
       this.currentPage = 1;
@@ -117,13 +129,23 @@ export class EmployeeList extends LitElement {
     super.disconnectedCallback();
   }
 
+  get filteredEmployees() {
+    if (!this.searchQuery) return this.employees;
+    const q = this.searchQuery.trim().toLowerCase();
+    return this.employees.filter(
+      (emp) =>
+        emp.firstName.toLowerCase().includes(q) ||
+        emp.lastName.toLowerCase().includes(q)
+    );
+  }
+
   get totalPages() {
-    return Math.ceil(this.employees.length / this.pageSize);
+    return Math.ceil(this.filteredEmployees.length / this.pageSize);
   }
 
   get pagedEmployees() {
     const start = (this.currentPage - 1) * this.pageSize;
-    return this.employees.slice(start, start + this.pageSize);
+    return this.filteredEmployees.slice(start, start + this.pageSize);
   }
 
   _edit(id) {
@@ -140,6 +162,18 @@ export class EmployeeList extends LitElement {
   render() {
     return html`<div class="table-container">
       <h2>${t("employeeList")}</h2>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="${t("searchByName")}"
+          .value=${this.searchQuery}
+          @input=${(e) => {
+            this.searchQuery = e.target.value;
+            this.currentPage = 1;
+          }}
+        />
+      </div>
       <table>
         <thead>
           <tr>

@@ -21,6 +21,7 @@ export const locales = {
     employeeList: "Employee List",
     next: "Next",
     prev: "Previous",
+    searchByName: "Search by Name",
   },
   tr: {
     employees: "Çalışanlar",
@@ -45,5 +46,6 @@ export const locales = {
     employeeList: "Çalışan Listesi",
     next: "Sonraki",
     prev: "Önceki",
+    searchByName: "İsimle Ara",
   },
 };
