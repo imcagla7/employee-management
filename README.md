@@ -18,7 +18,7 @@ This project is a simple employee management application built with Lit.
 
    ```
    git clone <https://github.com/imcagla7/employee-management.git>
-   cd employee-management-app
+   cd employee-management
    ```
 
 2. Install dependencies:
